@@ -1,0 +1,36 @@
+
+.products{
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    padding: 1rem 4.5rem 1.5rem 4.5rem;
+    background-color: rgba(255, 107, 0, 0.08);
+    position: relative;
+}
+
+.typeProductList{
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 600;
+    font-size: 27px;
+}
+
+.productList{
+    width: 100%;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    overflow-x: scroll;
+    overflow-y: auto;
+}
+
+.drinks{
+    background-color: rgba(5, 0, 255, 0.08);
+}
+
+.logoLittle{
+    position: absolute;
+    width: 70px;
+    bottom: 0.5rem;
+    right: 1rem;
+}
+

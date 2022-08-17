@@ -13,11 +13,11 @@ const AppRouter = () => {
         <Routes>
 
             {user.isAuth && authRoutes.map( ({path, Element}) =>
-                <Route key={path} path={path} element={<Element/>} exact/>
+                <Route key={path} path={path} element={<Element/>}/>
             )}
 
             {publicRoutes.map( ({path, Element}) =>
-                <Route key={path} path={path} element={<Element/>} exact/>
+                <Route key={path} path={path} element={<Element/>}/>
             )}
 
             <Route path="*" element={<Navigate to={CATALOG_ROUTE} />}/>

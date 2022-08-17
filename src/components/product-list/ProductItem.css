@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway&family=Source+Sans+Pro:wght@400;600&display=swap');
+
+*{
+    margin: 0;
+}
+
+.productItem{
+    width: fit-content;
+    margin-right: 1.3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.burger1{
+    width: 210px;
+    height: 140px;
+    margin-bottom: -2rem;
+}
+
+.back{
+    width: 210px;
+    background-color: rgba(81, 78, 255, 0.07);
+    padding: 3rem 1rem 0.5rem 1rem;
+    border-radius: 15px;
+}
+
+.productName{
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 600;
+    font-size: 23px;
+}
+
+.favoriteIcon{
+    width: 20px;
+    height: 21px;
+    margin-bottom: -3px;
+}
+
+.favoriteIcon:hover{
+    transform: scale(1.05);
+}
+
+.productNameAndIconFavorite{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.description{
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 400;
+    font-size: 19px;
+}
+
+.price{
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 400;
+    font-size: 19px
+}
+
+.cartIcon{
+    width: 30px;
+    height: 35px;
+}
+
+.cartIcon:hover{
+    transform: scale(1.05);
+}
+
+.priceAndCartIcon{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
