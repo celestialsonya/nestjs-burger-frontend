@@ -1,14 +1,25 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {Context} from "../../index";
 import {Product} from "../../store/ProductStore";
 import {observer} from "mobx-react-lite";
 import ProductItem from "./ProductItem";
 import logoLittle from "../../assets/logoLittle.svg"
 import "./ProductList.css"
+import {fetchProducts} from "../../http/ProductApi";
 
 const ProductList = observer(() => {
 
     const {products} = useContext(Context)
+
+    useEffect(() => {
+        fetchProducts().then(data => {
+            console.log(data)
+            products.setProducts(data)
+        })
+    }, [])
+
+    console.log(fetchProducts())
+
     let categories: string[] = []
     products._products.map((p: Product) => {
         if (!categories.includes(p.category)){

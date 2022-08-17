@@ -4,7 +4,6 @@ import ProductList from "../components/product-list/ProductList";
 
 const Catalog = observer(() => {
 
-
     return (
         <div className="catalog">
             <ProductList />
