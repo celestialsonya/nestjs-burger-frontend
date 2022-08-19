@@ -1,26 +1,30 @@
 
-.products{
-    margin-top: 1rem;
+
+.productList{
+    margin-top: 2rem;
     margin-bottom: 2rem;
-    padding: 1rem 4.5rem 1.5rem 4.5rem;
+    padding: 1rem 3.5rem 1.5rem 3.5rem;
     background-color: rgba(255, 107, 0, 0.08);
+    /*background-color: rgba(235, 224, 237, 1);*/
+    /*background-color: rgba(255, 0, 199, 0.08);*/
     position: relative;
+    z-index: 3000;
 }
 
 .typeProductList{
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 600;
     font-size: 27px;
+    color: rgba(20, 36, 79, 1)
 }
 
-.productList{
-    width: 100%;
+.products{
     margin-top: 1rem;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    row-gap: 1.5rem;
     align-items: center;
-    padding: 0;
-    overflow-x: scroll;
-    overflow-y: auto;
+    justify-items: center;
 }
 
 .drinks{
@@ -28,6 +32,7 @@
 }
 
 .logoLittle{
+    z-index: 5000;
     position: absolute;
     width: 70px;
     bottom: 0.5rem;

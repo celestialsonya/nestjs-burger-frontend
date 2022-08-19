@@ -2,10 +2,12 @@
 
 .header{
     width: 100%;
-    margin-top: 0.5rem;
+    height: 85px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    /*box-shadow: 1px 2px 34px rgba(13, 39, 80, 0.16);*/
+    box-shadow: 1px 2px 34px rgba(80, 13, 33, 0.16);
 }
 
 .logo{

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Product} from "../../store/ProductStore";
 import favoriteIcon from "../../assets/favorit-icon.svg"
 import cartIcon from "../../assets/cart-icon.svg"
 import burger1 from "../../assets/burger1.png"
 import "./ProductItem.css"
+import {Context} from "../../index";
 
 interface IProps {
     product: Product;
@@ -12,8 +13,18 @@ interface IProps {
 const ProductItem = (props: IProps) => {
 
     const {product} = props
+    const {productIsActive} = useContext(Context)
+
+    let isActive: boolean = productIsActive.getIsActive()
+    function toggleIsActive(isActive: boolean): boolean{
+        if (isActive === true){
+            productIsActive.setProduct(null)
+        }
+        return !isActive
+    }
+
     return (
-        <li className="productItem">
+        <div className="productItem">
             <img className="burger1" src={burger1} alt=""/>
             <div className="back">
                 <div className="productNameAndIconFavorite">
@@ -23,10 +34,19 @@ const ProductItem = (props: IProps) => {
                 <p className="description">{product.description}</p>
                 <div className="priceAndCartIcon">
                     <p className="price">{`₽ ` + product.price + ` RUB`}</p>
-                    <img className="cartIcon" src={cartIcon} alt=""/>
+                    <img
+                        onClick={() => {
+                            productIsActive.setIsActive(toggleIsActive(isActive))
+                            if (isActive !== true){
+                                productIsActive.setProduct(product)
+                            }
+                        }}
+                        className="cartIcon"
+                        src={cartIcon}
+                        alt=""/>
                 </div>
             </div>
-        </li>
+        </div>
     );
 };
 
