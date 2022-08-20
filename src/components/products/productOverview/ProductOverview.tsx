@@ -1,9 +1,9 @@
 import React from 'react';
 import "./ProductOverview.css"
-import burger1 from "../../assets/burger1.png"
-import {Product} from "../../store/ProductStore";
-import favoriteIcon from "../../assets/favorit-icon.svg";
-import cartIconWhite from "../../assets/cartIconWhite.png"
+import burger1 from "../../../assets/burger1.png"
+import favoriteIcon from "../../../assets/favorit-icon.svg";
+import cartIconWhite from "../../../assets/cartIconWhite.png"
+import {Product} from "../../../types";
 
 interface IProps {
     product: Product

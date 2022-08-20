@@ -1,0 +1,15 @@
+
+.appForm{
+    width: 100%;
+    height: calc(100% - 85px);
+    background-color: #000000;
+    opacity: 0.5;
+    position: absolute;
+    z-index: 6000;
+    top: 85px;
+    right: 100%;
+}
+
+.--app-form-active{
+    right: 0;
+}

@@ -1,42 +1,41 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {observer} from "mobx-react-lite";
-import ProductList from "../components/products/ProductList";
-import {Context} from "../index";
 import {fetchProducts} from "../http/ProductApi";
-import {Product} from "../store/ProductStore";
+import {Product} from "../types";
 import "./styles/Catalog.css"
-import ProductOverview from "../components/products/ProductOverview";
+import {Context} from "../context/Context";
+import ProductList from "../components/products/productList/ProductList";
+import ProductOverview from "../components/products/productOverview/ProductOverview";
 
 const Catalog = observer(() => {
 
-    const {products} = useContext(Context)
+    const {productStore} = useContext(Context)
 
     useEffect(() => {
         fetchProducts().then(data => {
-            products.setProducts(data)
+            productStore.setProducts(data)
         })
     }, [])
 
     let categories: string[] = []
-    products._products.map((p: Product) => {
+    productStore.getProducts().map((p: Product) => {
         if (!categories.includes(p.category)){
             categories.push(p.category)
         }
     })
 
-    const {productIsActive} = useContext(Context)
-    const isActive = productIsActive.getIsActive()
-    const product = productIsActive.getProduct()
+    const isActive = productStore.getIsActive()
+    const overviewProduct = productStore.getOverviewProduct()
 
     return (
         <div className="catalog">
             {categories.map((category: string) =>
-                <ProductList category={category} products={products}/>
+                <ProductList category={category} key={category} />
             )}
 
-            {isActive? <ProductOverview product={product}/> : null}
+            {isActive? <ProductOverview product={overviewProduct}/> : null}
         </div>
     );
 });
 
-export default Catalog;
+export default React.memo(Catalog);
