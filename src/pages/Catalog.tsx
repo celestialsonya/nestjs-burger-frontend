@@ -1,11 +1,10 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {observer} from "mobx-react-lite";
 import {fetchProducts} from "../http/ProductApi";
 import {Product} from "../types";
 import "./styles/Catalog.css"
 import {Context} from "../context/Context";
 import ProductList from "../components/products/productList/ProductList";
-import ProductOverview from "../components/products/productOverview/ProductOverview";
 
 const Catalog = observer(() => {
 
@@ -13,6 +12,7 @@ const Catalog = observer(() => {
 
     useEffect(() => {
         fetchProducts().then(data => {
+            console.log(data)
             productStore.setProducts(data)
         })
     }, [])
@@ -25,15 +25,12 @@ const Catalog = observer(() => {
     })
 
     const isActive = productStore.getIsActive()
-    const overviewProduct = productStore.getOverviewProduct()
 
     return (
-        <div className="catalog">
+        <div className="catalog" >
             {categories.map((category: string) =>
                 <ProductList category={category} key={category} />
             )}
-
-            {isActive? <ProductOverview product={overviewProduct}/> : null}
         </div>
     );
 });

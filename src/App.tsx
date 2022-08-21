@@ -1,12 +1,40 @@
-import {BrowserRouter} from "react-router-dom";
 import AppRouter from "./components/AppRouter";
 import NavBar from "./components/header/Header";
-import React from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import AppForm from "./components/appForm/AppForm";
 import "./globals.css"
+import {Context} from "./context/Context";
+import {observer} from "mobx-react-lite";
+import ProductOverview from "./components/products/productOverview/ProductOverview";
 
 function App() {
 
+    const {productStore} = useContext(Context)
+
+    const isActive = productStore.getIsActive()
+    const overviewProduct = productStore.getOverviewProduct()
+
+    useEffect(() => {
+        if (isActive){
+            document.body.style.overflowY = 'hidden'
+        }
+        if (!isActive){
+            document.body.style.overflowY = 'auto'
+        }
+    }, [isActive])
+
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const handleScroll = () => {
+        const position = window.scrollY;
+        setScrollPosition(position);
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll)
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [])
 
   return (
 
@@ -14,8 +42,9 @@ function App() {
         <NavBar/>
         <AppRouter/>
         <AppForm />
+        {isActive? <ProductOverview product={overviewProduct} scrollPosition={scrollPosition}/> : null}
     </div>
   );
 }
 
-export default App;
+export default observer(App);

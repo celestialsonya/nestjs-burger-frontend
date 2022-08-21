@@ -14,10 +14,10 @@ const ProductList = (props: IProps) => {
     const {category} = props
     const {productStore} = useContext(Context)
 
-
-
     return (
-        <div className={ `productList ${category}` } >
+        <div className={ `productList ${category}` } onScroll={(e) => {
+            console.log(e)
+        }} >
             <p className="typeProductList">{category[0].toUpperCase() + category.substring(1) + `:`}</p>
             <div className="products">
                 {

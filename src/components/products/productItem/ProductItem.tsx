@@ -1,9 +1,8 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import favoriteIcon from "../../../assets/favorit-icon.svg"
 import cartIcon from "../../../assets/cart-icon.svg"
 import burger1 from "../../../assets/burger1.png"
 import "./ProductItem.css"
-import {Context} from "../../../context/Context";
 import {Product} from "../../../types";
 import { useOverview } from "../../../hooks/useOverview";
 

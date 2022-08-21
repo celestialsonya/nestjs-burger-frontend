@@ -4,9 +4,6 @@ import { Context } from "../../context/Context";
 import { observer } from "mobx-react-lite";
 import { useOverview } from "../../hooks/useOverview";
 
-
-
-
 const AppForm = observer(() => {
 
     const {productStore} = useContext(Context)
@@ -20,6 +17,7 @@ const AppForm = observer(() => {
         <div onClick={handleCloseOverview} className={ productStore.getIsActive()? "appForm --app-form-active" : "appForm"}>
             &nbsp;
         </div>
-    );
+
+);
 })
 export default AppForm;
