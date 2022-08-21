@@ -1,27 +1,47 @@
 import {makeAutoObservable} from "mobx";
+import {Product} from "../types";
 
-export type Product = {
-    id: number
-    name: string
-    description: string
-    price: number
-    category: string
+interface Overview {
+    isActive: boolean;
+    product: Product;
 }
 
 export default class ProductStore {
 
-    _products: Product[];
+    private products: Product[];
+    private overview: Overview
+
     constructor() {
-        this._products = []
+        this.products = []
+        this.overview = {
+            isActive: false,
+            product: null
+        }
         makeAutoObservable(this)
     }
 
     setProducts(products: Product[]){
-        this._products = products
+        this.products = products
+    }
+
+    setOverviewProduct(product: Product){
+        this.overview.product = product
+    }
+
+    setIsActive(isActive: boolean){
+        this.overview.isActive = isActive
     }
 
     getProducts(): Product[]{
-        return this._products
+        return this.products
+    }
+
+    getOverviewProduct(): Product{
+        return this.overview.product
+    }
+
+    getIsActive(): boolean{
+        return this.overview.isActive
     }
 
 }

@@ -1,10 +1,11 @@
 import React, {useContext} from 'react';
-import {Product} from "../../store/ProductStore";
-import favoriteIcon from "../../assets/favorit-icon.svg"
-import cartIcon from "../../assets/cart-icon.svg"
-import burger1 from "../../assets/burger1.png"
+import favoriteIcon from "../../../assets/favorit-icon.svg"
+import cartIcon from "../../../assets/cart-icon.svg"
+import burger1 from "../../../assets/burger1.png"
 import "./ProductItem.css"
-import {Context} from "../../index";
+import {Context} from "../../../context/Context";
+import {Product} from "../../../types";
+import { useOverview } from "../../../hooks/useOverview";
 
 interface IProps {
     product: Product;
@@ -13,14 +14,10 @@ interface IProps {
 const ProductItem = (props: IProps) => {
 
     const {product} = props
-    const {productIsActive} = useContext(Context)
+    const {handleOpen} = useOverview()
 
-    let isActive: boolean = productIsActive.getIsActive()
-    function toggleIsActive(isActive: boolean): boolean{
-        if (isActive === true){
-            productIsActive.setProduct(null)
-        }
-        return !isActive
+    function handleOpenOverview(){
+        handleOpen(product)
     }
 
     return (
@@ -35,12 +32,7 @@ const ProductItem = (props: IProps) => {
                 <div className="priceAndCartIcon">
                     <p className="price">{`₽ ` + product.price + ` RUB`}</p>
                     <img
-                        onClick={() => {
-                            productIsActive.setIsActive(toggleIsActive(isActive))
-                            if (isActive !== true){
-                                productIsActive.setProduct(product)
-                            }
-                        }}
+                        onClick={ handleOpenOverview }
                         className="cartIcon"
                         src={cartIcon}
                         alt=""/>
@@ -50,4 +42,4 @@ const ProductItem = (props: IProps) => {
     );
 };
 
-export default ProductItem;
+export default React.memo(ProductItem);

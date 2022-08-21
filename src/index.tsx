@@ -3,19 +3,19 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import UserStore from "./store/UserStore";
 import ProductStore from "./store/ProductStore";
-import ProductIsActive from "./store/ProductIsActive";
-
-export const Context = createContext(null)
+import {Context} from "./context/Context";
+import {BrowserRouter} from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <React.StrictMode>
-          <Context.Provider value={{
-              user: new UserStore(),
-              products: new ProductStore(),
-              productIsActive: new ProductIsActive()
-          }}>
-              <App />
-          </Context.Provider>
-    </React.StrictMode>
+
+    <BrowserRouter>
+        <Context.Provider value={{
+            userStore: new UserStore(),
+            productStore: new ProductStore()
+            }}>
+        <App />
+        </Context.Provider>
+    </BrowserRouter>
+
 );
