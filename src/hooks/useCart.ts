@@ -1,4 +1,4 @@
-import {CartInterface, JsonProduct, Product} from "../types";
+import {CartInterface, JsonProduct} from "../types";
 const CART_KEY = "cart"
 
 export function useCart(){
@@ -19,16 +19,18 @@ export function useCart(){
     function addProduct(product: JsonProduct){
 
         const actualCart = getCart()
-        const isExistsProduct = actualCart.find((p) => p.product_id === product.product_id)
+        const isExistsProduct = actualCart.findIndex((p) => p.product_id === product.product_id)
         let newCart;
-        if (!isExistsProduct){
+        if (isExistsProduct === -1){
             newCart = actualCart.concat(product)
+            console.log(newCart)
         } else {
             newCart = actualCart.map((p: JsonProduct) => {
                 if (p.product_id === product.product_id){
                     p.quantity += 1
                     return p
                 }
+                return p
             })
         }
 
@@ -50,11 +52,22 @@ export function useCart(){
         return actualCart.find((p: JsonProduct) => p.product_id === id)
     }
 
+    function getActualQuantity(id: number){
+        const actualCart = getCart()
+        const product = actualCart.find(p => p.product_id === id)
+        if (product){
+            return product.quantity
+        }
+
+        return 0
+    }
+
     const cart: CartInterface = {
         getCart,
         addProduct,
         clearCart,
-        getById
+        getById,
+        getActualQuantity
     }
 
     return cart;

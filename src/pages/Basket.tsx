@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
+import "../components/products/productOverview/ProductOverview.css"
 
 const Basket = () => {
+
     return (
         <div>
 

@@ -14,10 +14,11 @@ const AppForm = observer(() => {
     }
 
     return (
-        <div onClick={handleCloseOverview} className={ productStore.getIsActive()? "appForm --app-form-active" : "appForm"}>
+        <div onClick={
+            handleCloseOverview
+        } className={ productStore.getIsActive()? "appForm --app-form-active" : "appForm"}>
             &nbsp;
         </div>
-
 );
 })
 export default AppForm;

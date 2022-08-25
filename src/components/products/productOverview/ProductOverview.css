@@ -90,10 +90,48 @@
     font-size: 24px;
 }
 
+.--addProductText-hidden{
+    display: none;
+}
+
+.addingQuantityByProduct{
+    height: 65%;
+    border-radius: 25px;
+    background-color: rgba(255, 255, 255, 0.15);
+    transition: all 1.5s ease-in-out;
+    width: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 2rem 0 2rem;
+}
+
+.--addingQuantityByProduct-hidden{
+    display: none;
+}
+
+
 .cartIconOverview{
     height: 32px;
 }
 
 .cartIconOverview:hover{
     transform: scale(1.05);
+}
+
+.addQuantityBtn{
+    height: 2rem;
+    width: 2rem;
+}
+
+.productQuantity{
+    color: white;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 25px;
+}
+
+.reduceQuantityBtn{
+    height: 2rem;
+    width: 1.7rem;
+    color: white;
 }
