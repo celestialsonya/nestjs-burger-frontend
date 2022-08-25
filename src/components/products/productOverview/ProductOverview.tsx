@@ -1,9 +1,13 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import "./ProductOverview.css"
 import burger1 from "../../../assets/burger1.png"
 import favoriteIcon from "../../../assets/favorit-icon.svg";
 import cartIconWhite from "../../../assets/cartIconWhite.png"
-import {Product} from "../../../types";
+import {JsonProduct, Product} from "../../../types";
+import {useLocalStore} from "mobx-react-lite";
+import {useLocalStorage} from "../../../hooks/useLocalStorage";
+import {useCart} from "../../../hooks/useCart";
+import {queries} from "@testing-library/react";
 
 interface IProps {
     product: Product
@@ -13,6 +17,20 @@ interface IProps {
 const ProductOverview = (props: IProps) => {
 
     const {product, scrollPosition} = props
+    const {addProduct, getById} = useCart()
+
+    function addProductByCart(product: Product){
+        const productFind = getById(product.id)
+
+        let jsonProduct: JsonProduct;
+        if (!productFind){
+            jsonProduct = {product_id: product.id, product_name: product.name, quantity: 1}
+        } else {
+            jsonProduct = productFind
+        }
+
+        return addProduct(jsonProduct)
+    }
 
     return (
         <div className={ scrollPosition > 85 ? "productOverview --productOverview-scroll" : "productOverview"}>
@@ -31,7 +49,7 @@ const ProductOverview = (props: IProps) => {
                 <p className="priceOverview">{`₽ ` + product.price + ` RUB`}</p>
             </div>
             
-            <div className="addProductButton">
+            <div onClick={() => addProductByCart(product)} className="addProductButton">
                 <div className="empty">
                     &nbsp;
                 </div>

@@ -19,3 +19,16 @@ export enum Role {
     ADMIN = "admin",
     WORKER = "worker"
 }
+
+export class JsonProduct {
+    product_id: number
+    product_name: string
+    quantity: number
+}
+
+export interface CartInterface {
+    getCart(): JsonProduct[]
+    addProduct(product: JsonProduct): void
+    clearCart(): void
+    getById(id: number): JsonProduct | undefined
+}
