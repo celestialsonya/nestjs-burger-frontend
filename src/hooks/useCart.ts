@@ -19,6 +19,7 @@ export function useCart(){
     function addProduct(product: JsonProduct){
 
         const actualCart = getCart()
+        console.log(product)
         const isExistsProduct = actualCart.findIndex((p) => p.product_id === product.product_id)
         let newCart;
         if (isExistsProduct === -1){
@@ -35,6 +36,27 @@ export function useCart(){
         }
 
         updateCart(newCart);
+        return;
+    }
+
+    function removeProduct(id: number){
+        const actualCart = getCart()
+        const productFind = actualCart.find((p: JsonProduct) => p.product_id === id)
+
+        let newCart;
+        if (productFind.quantity === 1){
+            newCart = actualCart.filter((p: JsonProduct) => p.product_id !== id)
+        } else {
+            newCart = actualCart.map((p: JsonProduct) => {
+                if (p.product_id === id){
+                    p.quantity -= 1
+                    return p
+                }
+                return p
+            })
+        }
+
+        updateCart(newCart)
         return;
     }
 
@@ -67,7 +89,8 @@ export function useCart(){
         addProduct,
         clearCart,
         getById,
-        getActualQuantity
+        getActualQuantity,
+        removeProduct
     }
 
     return cart;

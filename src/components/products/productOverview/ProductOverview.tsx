@@ -7,6 +7,7 @@ import {JsonProduct, Product} from "../../../types";
 import {useCart} from "../../../hooks/useCart";
 import {IoAddSharp} from "react-icons/io5"
 import {AiOutlineMinus} from "react-icons/ai"
+import {once} from "mobx/dist/utils/utils";
 
 interface IProps {
     product: Product
@@ -16,17 +17,18 @@ interface IProps {
 const ProductOverview = (props: IProps) => {
 
     const {product, scrollPosition} = props
-    const {addProduct, getById, getActualQuantity} = useCart()
+    const {addProduct, getById, getActualQuantity, removeProduct} = useCart()
     const [addingProductIsActive, setAddingProductIsActive] = useState(false)
     const ulref = useRef<HTMLDivElement>(null)
     const [actualQuantity, setActualQuantity] = useState(getActualQuantity(product.id))
+    const [buttonIsClicked, setButtonIsClicked] = useState(false)
 
-    function addQuantity(){
-        setActualQuantity(actualQuantity + 1)
-    }
-
-    function reduceQuantity(){
-        setActualQuantity(actualQuantity - 1)
+    function buttonAddProductClick(){
+        // if on the button "Add product" was clicked for the first time:
+        if (buttonIsClicked === false){
+            addProductByCart(product)
+        }
+        setButtonIsClicked(true)
     }
 
     function animate(){
@@ -46,16 +48,41 @@ const ProductOverview = (props: IProps) => {
     }, [ulref])
 
     function addProductByCart(product: Product){
+
+        // if on the button "Add product" was clicked for the first time:
+        if (buttonIsClicked === false){
+
+            if (actualQuantity !== 0){
+                return
+            }
+            const jsonProduct: JsonProduct = {product_id: product.id, product_name: product.name, quantity: 1}
+            setActualQuantity(actualQuantity + 1)
+
+            return addProduct(jsonProduct)
+        }
+
+        // if you clicked on the button "+":
         const productFind = getById(product.id)
 
         let jsonProduct: JsonProduct;
-        if (!productFind){
-            jsonProduct = {product_id: product.id, product_name: product.name, quantity: 1}
-        } else {
+        if (productFind){
             jsonProduct = productFind
+        } else {
+            jsonProduct = {product_id: product.id, product_name: product.name, quantity: 1}
         }
 
+        setActualQuantity(actualQuantity + 1)
         return addProduct(jsonProduct)
+    }
+    function deleteProductByCart(product: Product){
+        // if you clicked on the button "-":
+        if (actualQuantity !== 0){
+            setActualQuantity(actualQuantity - 1)
+            return removeProduct(product.id)
+        } else {
+            setActualQuantity(0)
+            return
+        }
     }
 
     return (
@@ -77,16 +104,16 @@ const ProductOverview = (props: IProps) => {
             
             <div onClick={() => {
                 setAddingProductIsActive(true)
-                addProductByCart(product)
+                buttonAddProductClick()
             }}  className="addProductButton">
                 <div className="empty">
                     &nbsp;
                 </div>
                 <p className={ addingProductIsActive ? "addProductText --addProductText-hidden" : "addProductText"}>Add to cart</p>
                 <div ref={ulref} className={ addingProductIsActive ? "addingQuantityByProduct" : "--addingQuantityByProduct-hidden"}>
-                    <IoAddSharp onClick={addQuantity} className="addQuantityBtn" color="white"/>
+                    <IoAddSharp onClick={() => addProductByCart(product)} className="addQuantityBtn" color="white"/>
                     <p className="productQuantity">{actualQuantity}</p>
-                    <AiOutlineMinus onClick={reduceQuantity} className="reduceQuantityBtn"/>
+                    <AiOutlineMinus onClick={() => deleteProductByCart(product)} className="reduceQuantityBtn"/>
                 </div>
                 <img className="cartIconOverview" src={cartIconWhite} alt=""/>
             </div>

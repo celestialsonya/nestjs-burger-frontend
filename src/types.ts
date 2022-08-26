@@ -32,4 +32,5 @@ export interface CartInterface {
     clearCart(): void
     getById(id: number): JsonProduct | undefined
     getActualQuantity(id: number): number
+    removeProduct(id: number): void
 }
