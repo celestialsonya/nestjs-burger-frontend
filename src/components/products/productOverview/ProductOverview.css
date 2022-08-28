@@ -34,6 +34,7 @@
 .burgerOverview{
     height: 180px;
     margin-left: -2rem;
+    user-select: none;
 }
 
 .productNameOverview{
@@ -45,6 +46,7 @@
 .favoriteIconOverview{
     width: 28px;
     margin-bottom: -3px;
+    user-select: none;
 }
 
 .favoriteIconOverview:hover{
@@ -113,10 +115,18 @@
 
 .cartIconOverview{
     height: 32px;
+    user-select: none;
 }
 
 .cartIconOverview:hover{
     transform: scale(1.05);
+}
+
+.productQuantity{
+    user-select: none;
+    color: white;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 25px;
 }
 
 .addQuantityBtn{
@@ -124,14 +134,16 @@
     width: 2rem;
 }
 
-.productQuantity{
-    color: white;
-    font-family: 'Source Sans Pro', sans-serif;
-    font-size: 25px;
-}
-
 .reduceQuantityBtn{
     height: 2rem;
     width: 1.7rem;
     color: white;
+}
+
+.addQuantityBtn:hover{
+    transform: scale(1.05);
+}
+
+.reduceQuantityBtn:hover{
+    transform: scale(1.05);
 }

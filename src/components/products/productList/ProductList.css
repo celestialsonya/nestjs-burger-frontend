@@ -14,7 +14,8 @@
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 600;
     font-size: 27px;
-    color: rgba(20, 36, 79, 1)
+    color: rgba(20, 36, 79, 1);
+    user-select: none;
 }
 
 .products{
@@ -36,5 +37,6 @@
     width: 70px;
     bottom: 0.5rem;
     right: 1rem;
+    user-select: none;
 }
 

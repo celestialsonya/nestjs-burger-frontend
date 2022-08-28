@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import "./ProductOverview.css"
 import burger1 from "../../../assets/burger1.png"
 import favoriteIcon from "../../../assets/favorit-icon.svg";
@@ -7,7 +7,8 @@ import {JsonProduct, Product} from "../../../types";
 import {useCart} from "../../../hooks/useCart";
 import {IoAddSharp} from "react-icons/io5"
 import {AiOutlineMinus} from "react-icons/ai"
-import {once} from "mobx/dist/utils/utils";
+import {Context} from "../../../context/Context";
+import {fetchAmount, fetchProducts} from "../../../http/ProductApi";
 
 interface IProps {
     product: Product
@@ -16,8 +17,9 @@ interface IProps {
 
 const ProductOverview = (props: IProps) => {
 
+    const {productStore} = useContext(Context)
     const {product, scrollPosition} = props
-    const {addProduct, getById, getActualQuantity, removeProduct} = useCart()
+    const {getCart, addProduct, getById, getActualQuantity, removeProduct} = useCart()
     const [addingProductIsActive, setAddingProductIsActive] = useState(false)
     const ulref = useRef<HTMLDivElement>(null)
     const [actualQuantity, setActualQuantity] = useState(getActualQuantity(product.id))
@@ -31,21 +33,25 @@ const ProductOverview = (props: IProps) => {
         setButtonIsClicked(true)
     }
 
-    function animate(){
-        if (ulref.current){
-            ulref.current.classList.add("addingQuantityByProduct-resized")
-            ulref.current.classList.add("addingQuantityByProduct-transformed")
-        }
-    }
-
     useEffect(() => {
         ulref.current.animate([{ width: "10%" }, { width: "40%" }], {
             duration: 700,
-            easing: "ease-in",
+            easing: "ease-in-out",
             fill: "forwards",
             delay: 300
         })
+        if (actualQuantity !== 0){
+            setAddingProductIsActive(true)
+        }
+
     }, [ulref])
+
+    useEffect(() => {
+        const cart = getCart()
+        fetchAmount(cart).then(data => {
+            productStore.setAmount(data)
+        })
+    }, [addProductByCart, deleteProductByCart])
 
     function addProductByCart(product: Product){
 
@@ -55,7 +61,7 @@ const ProductOverview = (props: IProps) => {
             if (actualQuantity !== 0){
                 return
             }
-            const jsonProduct: JsonProduct = {product_id: product.id, product_name: product.name, quantity: 1}
+            const jsonProduct: JsonProduct = {product_id: product.id, quantity: 1}
             setActualQuantity(actualQuantity + 1)
 
             return addProduct(jsonProduct)
@@ -68,7 +74,7 @@ const ProductOverview = (props: IProps) => {
         if (productFind){
             jsonProduct = productFind
         } else {
-            jsonProduct = {product_id: product.id, product_name: product.name, quantity: 1}
+            jsonProduct = {product_id: product.id, quantity: 1}
         }
 
         setActualQuantity(actualQuantity + 1)
@@ -105,7 +111,7 @@ const ProductOverview = (props: IProps) => {
             <div onClick={() => {
                 setAddingProductIsActive(true)
                 buttonAddProductClick()
-            }}  className="addProductButton">
+            }} className="addProductButton">
                 <div className="empty">
                     &nbsp;
                 </div>

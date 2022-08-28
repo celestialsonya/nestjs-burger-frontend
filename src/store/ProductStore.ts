@@ -10,6 +10,7 @@ export default class ProductStore {
 
     private products: Product[];
     private overview: Overview
+    private amount: number;
 
     constructor() {
         this.products = []
@@ -17,6 +18,7 @@ export default class ProductStore {
             isActive: false,
             product: null
         }
+        this.amount = 0
         makeAutoObservable(this)
     }
 
@@ -32,6 +34,10 @@ export default class ProductStore {
         this.overview.isActive = isActive
     }
 
+    setAmount(amount: number){
+        this.amount = amount
+    }
+
     getProducts(): Product[]{
         return this.products
     }
@@ -42,6 +48,10 @@ export default class ProductStore {
 
     getIsActive(): boolean{
         return this.overview.isActive
+    }
+
+    getAmount(): number{
+        return this.amount
     }
 
 }

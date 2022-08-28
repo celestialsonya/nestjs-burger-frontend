@@ -1,4 +1,6 @@
-import {CartInterface, JsonProduct} from "../types";
+import {CartInterface, JsonProduct, Product} from "../types";
+import {fetchAmount, fetchProducts} from "../http/ProductApi";
+import {$host} from "../http";
 const CART_KEY = "cart"
 
 export function useCart(){
@@ -90,7 +92,7 @@ export function useCart(){
         clearCart,
         getById,
         getActualQuantity,
-        removeProduct
+        removeProduct,
     }
 
     return cart;

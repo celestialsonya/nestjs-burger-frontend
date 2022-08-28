@@ -22,7 +22,6 @@ export enum Role {
 
 export class JsonProduct {
     product_id: number
-    product_name: string
     quantity: number
 }
 

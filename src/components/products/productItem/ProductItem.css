@@ -17,6 +17,7 @@
     width: 240px;
     height: 160px;
     margin-bottom: -2.5rem;
+    user-select: none;
 }
 
 .back{
@@ -39,6 +40,7 @@
     width: 20px;
     height: 21px;
     margin-bottom: -3px;
+    user-select: none;
 }
 
 .favoriteIcon:hover{
@@ -66,6 +68,7 @@
 .cartIcon{
     width: 30px;
     height: 35px;
+    user-select: none;
 }
 
 .cartIcon:hover{
